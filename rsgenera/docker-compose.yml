@@ -1,0 +1,34 @@
+version: "3.8"
+
+services:
+  mysqldb:
+    image: mysql:5.7
+    restart: unless-stopped
+    environment:
+      - MYSQL_ROOT_PASSWORD=123456
+      - MYSQL_DATABASE=db_rsgenera
+    ports:
+      - 9001:3306
+    volumes:
+      - db:/var/lib/mysql
+  app:
+    depends_on:
+      - mysqldb
+    build: ./app
+    restart: on-failure
+    ports:
+      - 8080:8080
+    environment:
+      SPRING_APPLICATION_JSON: '{
+        "spring.datasource.url": "jdbc:mysql://mysqldb:3306/db_rsgenera?useSSL=false",
+        "spring.datasource.username": "root",
+        "spring.datasource.password": "123456",
+        "spring.jpa.properties.hibernate.dialect": "org.hibernate.dialect.MySQL5Dialect"
+      }'
+    volumes:
+      - .m2:/root/.m2
+    stdin_open: true
+    tty: true
+
+volumes:
+  db:
