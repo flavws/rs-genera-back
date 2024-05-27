@@ -22,5 +22,5 @@ public class Role {
     private String authority;
 
     @ManyToMany(mappedBy = "roles")
-    private Set<Person> people;
+    private Set<User> users;
 }
