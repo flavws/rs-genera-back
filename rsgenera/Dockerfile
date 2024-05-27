@@ -1,8 +1,20 @@
-FROM maven:3.3.0-openjdk-17
+FROM maven:3.8.3-openjdk-17 AS build
 
-WORKDIR /app
+COPY src /home/app/src
 
-COPY . .
-RUN mvn clean install
+COPY pom.xml /home/app
 
-CMD mvn spring-boot:run
+RUN mvn -f /home/app/pom.xml clean package
+
+#
+# Run stage
+#
+FROM openjdk:17
+
+COPY --from=build /home/app/target/rsgenera-0.0.1-SNAPSHOT.jar /usr/local/lib/rsgenera-0.0.1-SNAPSHOT.jar
+
+EXPOSE 8081
+
+USER 10014
+
+ENTRYPOINT ["java","-jar","/usr/local/lib/rsgenera-0.0.1-SNAPSHOT.jar"]
