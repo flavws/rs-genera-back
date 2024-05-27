@@ -1,6 +1,7 @@
 package br.com.rsgenera.service;
 
 import br.com.rsgenera.entity.Scheduling;
+import br.com.rsgenera.repository.SchedulingRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,7 +13,7 @@ import java.util.Optional;
 public class SchedulingService {
 
     @Autowired
-    private SchedulingService repository;
+    private SchedulingRepository repository;
 
     public Scheduling save(Scheduling scheduling) {
         return repository.save(scheduling);
@@ -38,6 +39,6 @@ public class SchedulingService {
     }
 
     public void delete(Long id) {
-        repository.delete(id);
+        repository.deleteById(id);
     }
 }

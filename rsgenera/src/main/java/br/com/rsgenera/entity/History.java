@@ -17,7 +17,6 @@ import java.time.LocalDate;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "tb_history")
 public class History {
 
     @Id
