@@ -1,10 +1,8 @@
 package br.com.rsgenera.entity;
 
+import br.com.rsgenera.enums.RoleName;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.Set;
 
@@ -13,13 +11,14 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
+@Builder
 public class Role {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String authority;
+    private RoleName authority;
 
     @ManyToMany(mappedBy = "roles")
     private Set<User> users;
