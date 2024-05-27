@@ -4,7 +4,7 @@ import br.com.rsgenera.enums.RoleName;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.Set;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -21,5 +21,5 @@ public class Role {
     private RoleName authority;
 
     @ManyToMany(mappedBy = "roles")
-    private Set<User> users;
+    private List<User> users;
 }

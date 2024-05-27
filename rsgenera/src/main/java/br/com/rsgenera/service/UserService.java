@@ -50,7 +50,7 @@ public class UserService {
         User newUser = User.builder()
                 .email(createUserDto.email())
                 .password(securityConfiguration.passwordEncoder().encode(createUserDto.password()))
-                .roles((Set<Role>) List.of(Role.builder().authority(createUserDto.role()).build()))
+                .roles(List.of(Role.builder().authority(createUserDto.role()).build()))
                 .build();
 
         userRepository.save(newUser);
